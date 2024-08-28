@@ -8,6 +8,17 @@ def preprocess_data(csv_file):
     
     # Print columns to ensure we are working with the correct dataset
     print("Columns in the dataset:", df.columns)
+
+    # Filter out records with user_id = -1.0 and assign a separate class label
+    placeholder_data = df[df['CustomerID'] == -1.0]
+    regular_data = df[df['CustomerID'] != -1.0]
+    
+    # Assign a unique user ID for the placeholder group (e.g., max regular ID + 1)
+    max_regular_id = regular_data['CustomerID'].astype('category').cat.codes.max()
+    placeholder_data['CustomerID'] = max_regular_id + 1
+    
+    # Combine the datasets back together
+    df = pd.concat([regular_data, placeholder_data])
     
     # Use Quantity as the rating-like feature and normalize it
     df['Quantity'] = df['Quantity'] / df['Quantity'].max()

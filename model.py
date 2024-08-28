@@ -25,7 +25,7 @@ def create_ancf_model(num_users, num_items, embedding_dim=50):
     x = Dense(64, activation='relu')(x)
     x = Dropout(0.5)(x)
     x = Dense(32, activation='relu')(x)
-    output = Dense(1, activation='linear')(x)  # Using 'linear' activation for regression output
+    output = Dense(1, activation='sigmoid')(x)  # Using 'linear' activation for regression output
 
     # Creating the model
     model = Model(inputs=[user_input, item_input], outputs=output)
