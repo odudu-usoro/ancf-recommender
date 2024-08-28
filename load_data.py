@@ -1,4 +1,3 @@
-# load_data.py
 import pandas as pd
 
 def load_and_preprocess_data(file_path):
